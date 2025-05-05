@@ -3,4 +3,6 @@
 compose_dir: /opt/compose
 app_name: meshcmd
 app_dir: "{{ compose_dir }}/{{ app_name }}"
+
+meshcmd_internal_port: 3000
 ...

@@ -20,6 +20,14 @@ services:
       - traefik.http.routers.meshcmd-https.rule=Host(`{{ meshcmd_traefik_http_host }}`)
       - traefik.http.routers.meshcmd-https.entrypoints=https
       - traefik.http.routers.meshcmd-https.tls=true
+    healthcheck:
+      test: ["CMD", "bash", "-c", "< /dev/tcp/localhost/{{ meshcmd_internal_port }}"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 7s
+      start_interval: 2s
+
 networks:
   {{ meshcmd_network }}:
     external: true
