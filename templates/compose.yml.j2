@@ -1,0 +1,24 @@
+services:
+  {{ meshcmd_container_name }}:
+    image: {{ meshcmd_image }}
+    container_name: {{ meshcmd_container_name }}
+    restart: unless-stopped
+    networks: {{ meshcmd_networks }}
+    logging:
+      driver: json-file
+      options:
+        max-file: 10
+        max-size: 2m
+    ports: {{ meshcmd_ports }}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.meshcmd-http.rule=Host(`{{ meshcmd_traefik_http_host }}`)
+      - traefik.http.routers.meshcmd-http.entrypoints=http
+      - traefik.http.middlewares.meshcmd-https-redirect.redirectscheme.scheme=https
+      - traefik.http.routers.meshcmd-http.middlewares=meshcmd-https-redirect
+      - traefik.http.routers.meshcmd-https.rule=Host(`{{ meshcmd_traefik_http_host }}`)
+      - traefik.http.routers.meshcmd-https.entrypoints=https
+      - traefik.http.routers.meshcmd-https.tls=true
+networks:
+  {{ meshcmd_networks }}:
+    external: true

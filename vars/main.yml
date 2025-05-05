@@ -1,0 +1,6 @@
+---
+# vars file for meshcmd
+compose_dir: /opt/compose
+app_name: meshcmd
+app_dir: "{{ compose_dir }}/{{ app_name }}"
+...

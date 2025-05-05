@@ -1,0 +1,24 @@
+---
+# tasks file for meshcmd
+- name: create dirs
+  ansible.builtin.file:
+    path: "{{ app_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: create networks
+  docker_network:
+    name: "{{ item }}"
+  loop: "{{ meshcmd_networks }}"
+
+- name: render templates
+  ansible.builtin.template:
+    src: compose.yml.j2
+    dest: "{{ app_dir }}/compose.yml"
+  notify: restart stack
+
+- name: deploy docker-compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_dir }}"
+    state: present
+...

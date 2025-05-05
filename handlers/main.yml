@@ -1,0 +1,21 @@
+---
+# handlers file for meshcmd
+- name: restart stack
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_dir }}"
+    state: restarted
+    register: output
+
+- name: show results
+  ansible.builtin.debug:
+    var: output
+
+- name: verify that services are running
+  ansible.builtin.assert:
+    that:
+      - meshcmd_container.State == 'running'
+  vars:
+    meshcmd_container: >-
+      {{ output.containers | selectattr("Service", "equalto", meshcmd_container_name) | first }}
+
+...

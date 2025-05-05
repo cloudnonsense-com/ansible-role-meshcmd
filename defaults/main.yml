@@ -1,0 +1,8 @@
+---
+# defaults file for meshcmd
+meshcmd_container_name: "meshcmd"
+meshcmd_image: "brytonsalisbury/meshcmd:amd64"
+meshcmd_networks: [meshcmd]
+meshcmd_ports: [3000:3000]
+meshcmd_traefik_http_host: meshcmd.example.internal
+...
