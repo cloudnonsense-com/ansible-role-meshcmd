@@ -3,7 +3,8 @@ services:
     image: {{ meshcmd_image }}
     container_name: {{ meshcmd_container_name }}
     restart: unless-stopped
-    networks: {{ meshcmd_networks }}
+    networks:
+      - {{ meshcmd_network }}
     logging:
       driver: json-file
       options:
@@ -20,5 +21,5 @@ services:
       - traefik.http.routers.meshcmd-https.entrypoints=https
       - traefik.http.routers.meshcmd-https.tls=true
 networks:
-  {{ meshcmd_networks }}:
+  {{ meshcmd_network }}:
     external: true

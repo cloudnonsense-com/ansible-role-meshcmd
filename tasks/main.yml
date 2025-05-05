@@ -8,8 +8,7 @@
 
 - name: create networks
   docker_network:
-    name: "{{ item }}"
-  loop: "{{ meshcmd_networks }}"
+    name: "{{ meshcmd_network }}"
 
 - name: render templates
   ansible.builtin.template:
