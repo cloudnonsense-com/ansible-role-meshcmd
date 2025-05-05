@@ -4,7 +4,7 @@
   community.docker.docker_compose_v2:
     project_src: "{{ app_dir }}"
     state: restarted
-    register: output
+  register: output
 
 - name: show results
   ansible.builtin.debug:

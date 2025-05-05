@@ -6,7 +6,7 @@
     state: directory
     mode: '0755'
 
-- name: create networks
+- name: create network
   docker_network:
     name: "{{ meshcmd_network }}"
 
